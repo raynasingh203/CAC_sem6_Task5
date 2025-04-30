@@ -1,26 +1,5 @@
 [
   {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "CAC_sem6_Task5",
-    "section": "",
-    "text": "Algorithmic Social Interaction Simulator\n\n\n\n\n\n\ncode\n\n\nanalysis\n\n\n\n\n\n\n\n\n\nApr 30, 2025\n\n\nRayna Singh\n\n\n\n\n\n\nNo matching items"
-  },
-  {
-    "objectID": "posts/welcome/index.html",
-    "href": "posts/welcome/index.html",
-    "title": "Welcome To My Blog",
-    "section": "",
-    "text": "This is the first post in a Quarto blog. Welcome!\n\nSince this post doesn’t specify an explicit image, the first image in the post will be used in the listing page of posts."
-  },
-  {
-    "objectID": "posts/post-with-code/index.html",
-    "href": "posts/post-with-code/index.html",
-    "title": "Algorithmic Social Interaction Simulator",
-    "section": "",
-    "text": "This project presents an agent-based simulation of emotional-social interaction within a speculative 2050 digital society.\nEach agent represents a unique digital persona with mood states, delegation levels, and emotional behavior rules.\nTrust relationships form dynamically through repeated interactions, influenced by mood compatibility and presence authenticity.\nOver time, emergent emotional communities and isolated agents appear, visualized as evolving networks.\nThe simulation acts as a behavioral backbone for configuring and testing identity systems within the broader PersonaBuild platform."
-  },
-  {
     "objectID": "about.html",
     "href": "about.html",
     "title": "About",
@@ -28,32 +7,11 @@
     "text": "About this blog"
   },
   {
-    "objectID": "posts/post-with-code/index.html#agent-properties-in-detail",
-    "href": "posts/post-with-code/index.html#agent-properties-in-detail",
+    "objectID": "posts/post-with-code/index.html",
+    "href": "posts/post-with-code/index.html",
     "title": "Algorithmic Social Interaction Simulator",
-    "section": "Agent Properties in Detail",
-    "text": "Agent Properties in Detail\n\nclass Agent:\n    def __init__(self, agent_id):\n        self.id = agent_id\n        self.mood = random.choice(MOODS)\n        self.delegation_mode = random.choice(DELEGATION_MODES)\n        self.trust = {}  # Trust levels with other agents\n        self.interaction_log = {}  # Record of all interactions\n\n\n\n\n\n\n\n\nProperty\nRole\n\n\n\n\nmood\nDefines the agent’s emotional tone (Calm, Energetic, Vivid, Focused)\n\n\ndelegation_mode\nDefines how actively the agent is present (Live Proxy, Soft Delegation, Hard Delegation)\n\n\ntrust\nDictates the strength of connection with other agents\n\n\ninteraction_log\nTracks how often agents interact (relational memory)"
-  },
-  {
-    "objectID": "posts/post-with-code/index.html#behavioral-rules-models-core-intelligence",
-    "href": "posts/post-with-code/index.html#behavioral-rules-models-core-intelligence",
-    "title": "Algorithmic Social Interaction Simulator",
-    "section": "Behavioral Rules (Model’s Core Intelligence)",
-    "text": "Behavioral Rules (Model’s Core Intelligence)\nInteraction Logic:\n\nAgents form trust through repeated interaction.\nIf moods match, trust increases faster.\nIf either agent is in Hard Delegation, trust growth is penalized (they’re emotionally distant).\nInteraction frequency is recorded.\n\nMood Drift:\n\nEach agent has a small chance to randomly change mood per step — simulating emotional instability or influence from the environment."
-  },
-  {
-    "objectID": "posts/post-with-code/index.html#network-output-visualizing-the-emotional-society",
-    "href": "posts/post-with-code/index.html#network-output-visualizing-the-emotional-society",
-    "title": "Algorithmic Social Interaction Simulator",
-    "section": "Network Output: Visualizing the Emotional Society",
-    "text": "Network Output: Visualizing the Emotional Society\n\n\n\n\n\n\n\nOutput\nMeaning\n\n\n\n\nNodes\nEach agent, colored by their current mood\n\n\nEdges\nTrust relationships (thicker = stronger trust)\n\n\nClusters\nGroups of agents with shared moods and frequent trust bonds\n\n\nIsolates\nAgents left out due to delegation distance or mood incompatibility"
-  },
-  {
-    "objectID": "posts/post-with-code/index.html#network-output-visualising-the-emotional-society",
-    "href": "posts/post-with-code/index.html#network-output-visualising-the-emotional-society",
-    "title": "Algorithmic Social Interaction Simulator",
-    "section": "Network Output: Visualising the Emotional Society",
-    "text": "Network Output: Visualising the Emotional Society\n\n\n\n\n\n\n\nOutput\nMeaning\n\n\n\n\nNodes\nEach agent, colored by their current mood\n\n\nEdges\nTrust relationships (thicker = stronger trust)\n\n\nClusters\nGroups of agents with shared moods and frequent trust bonds\n\n\nIsolates\nAgents left out due to delegation distance or mood incompatibility"
+    "section": "",
+    "text": "This project presents an agent-based simulation of emotional-social interaction within a speculative 2050 digital society.\nEach agent represents a unique digital persona with mood states, delegation levels, and emotional behavior rules.\nTrust relationships form dynamically through repeated interactions, influenced by mood compatibility and presence authenticity.\nOver time, emergent emotional communities and isolated agents appear, visualized as evolving networks.\nThe simulation acts as a behavioral backbone for configuring and testing identity systems within the broader PersonaBuild platform."
   },
   {
     "objectID": "posts/post-with-code/index.html#abstract",
@@ -70,11 +28,25 @@
     "text": "Core ABM Components\n\n\n\n\n\n\n\nABM Element\nImplementation\n\n\n\n\nAgents\nEach user is modeled as an Agent with properties like mood, delegation_mode, trust, and interaction_log.\n\n\nWorld\nThe simulation exists in a digital reality space (metaverse layer) where agents interact. It can represent specific “realities” like Work, Gaming, or Public.\n\n\nBehavioral Rules\nDefined in the interact() function:\n\n\n\n• Mood Compatibility → Agents with matching moods build trust faster\n\n\n\n• Delegation Mode → Hard Delegation weakens connection strength\n\n\n\n• Interaction Frequency → Repeated interactions grow trust over time\n\n\nSimulation Loop\nImplemented in the run_simulation() function. Runs over a set number of steps, allowing agents to repeatedly and randomly interact and evolve emotionally.\n\n\nVisualization\nEvery 20 steps, the simulation generates a snapshot using matplotlib + networkx, showing agents (as mood-colored nodes) and evolving trust networks.\n\n\nEmotion Logic\nThe mood_instability() function allows agents to randomly shift moods, simulating emotional unpredictability and environmental influence."
   },
   {
+    "objectID": "posts/post-with-code/index.html#agent-properties-in-detail",
+    "href": "posts/post-with-code/index.html#agent-properties-in-detail",
+    "title": "Algorithmic Social Interaction Simulator",
+    "section": "Agent Properties in Detail",
+    "text": "Agent Properties in Detail\n\nclass Agent:\n    def __init__(self, agent_id):\n        self.id = agent_id\n        self.mood = random.choice(MOODS)\n        self.delegation_mode = random.choice(DELEGATION_MODES)\n        self.trust = {}  # Trust levels with other agents\n        self.interaction_log = {}  # Record of all interactions\n\n\n\n\n\n\n\n\nProperty\nRole\n\n\n\n\nmood\nDefines the agent’s emotional tone (Calm, Energetic, Vivid, Focused)\n\n\ndelegation_mode\nDefines how actively the agent is present (Live Proxy, Soft Delegation, Hard Delegation)\n\n\ntrust\nDictates the strength of connection with other agents\n\n\ninteraction_log\nTracks how often agents interact (relational memory)"
+  },
+  {
     "objectID": "posts/post-with-code/index.html#behavioral-rules-models-core-intelligence-v1",
     "href": "posts/post-with-code/index.html#behavioral-rules-models-core-intelligence-v1",
     "title": "Algorithmic Social Interaction Simulator",
     "section": "Behavioral Rules (Model’s Core Intelligence) v1",
     "text": "Behavioral Rules (Model’s Core Intelligence) v1\nInteraction Logic:\n\nAgents form trust through repeated interaction.\nIf moods match, trust increases faster.\nIf either agent is in Hard Delegation, trust growth is penalized (they’re emotionally distant).\nInteraction frequency is recorded.\n\nMood Drift:\n\nEach agent has a small chance to randomly change mood per step — simulating emotional instability or influence from the environment (like news, changes in the virtual world, or social events)."
+  },
+  {
+    "objectID": "posts/post-with-code/index.html#network-output-visualising-the-emotional-society",
+    "href": "posts/post-with-code/index.html#network-output-visualising-the-emotional-society",
+    "title": "Algorithmic Social Interaction Simulator",
+    "section": "Network Output: Visualising the Emotional Society",
+    "text": "Network Output: Visualising the Emotional Society\n\n\n\n\n\n\n\nOutput\nMeaning\n\n\n\n\nNodes\nEach agent, colored by their current mood\n\n\nEdges\nTrust relationships (thicker = stronger trust)\n\n\nClusters\nGroups of agents with shared moods and frequent trust bonds\n\n\nIsolates\nAgents left out due to delegation distance or mood incompatibility"
   },
   {
     "objectID": "posts/post-with-code/index.html#code",
@@ -96,5 +68,12 @@
     "title": "Algorithmic Social Interaction Simulator",
     "section": "Applications and Next Steps",
     "text": "Applications and Next Steps\n\nIdentity Systems Design: The insights on emotional engagement and trust can inform the design of identity systems within PersonaBuild.\nEngagement Strategies: Understanding emotional compatibility and trust dynamics helps in designing engagement strategies that encourage social interaction and reduce isolation in digital communities.\nPlatform Improvements: Insights on isolated agents can help refine platform features to ensure users are emotionally engaged and not left out due to incompatibilities."
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "CAC_sem6_Task5",
+    "section": "",
+    "text": "Algorithmic Social Interaction Simulator\n\n\n\n\n\n\ncode\n\n\nanalysis\n\n\n\n\n\n\n\n\n\nApr 30, 2025\n\n\nRayna Singh\n\n\n\n\n\n\nNo matching items"
   }
 ]
