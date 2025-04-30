@@ -2,8 +2,8 @@
 title: "Algorithmic Social Interaction Simulator"
 author: "Rayna Singh"
 date: "2025-04-30"
-categories: [news, code, analysis]
-image: "image.jpg"
+categories: [code, analysis]
+image: "image 29.png"
 ---
 
 ## Abstract
@@ -81,7 +81,7 @@ import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 from matplotlib.widgets import Button
 
-# Define moods and colors
+# moods and colors
 MOODS = ['Calm', 'Energetic', 'Vivid', 'Focused']
 MOOD_COLORS = {
     'Calm': 'skyblue',
