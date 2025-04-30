@@ -4,7 +4,7 @@
     "href": "index.html",
     "title": "CAC_sem6_Task5",
     "section": "",
-    "text": "Post With Code\n\n\n\n\n\n\nnews\n\n\ncode\n\n\nanalysis\n\n\n\n\n\n\n\n\n\nApr 30, 2025\n\n\nHarlow Malloc\n\n\n\n\n\n\n\n\n\n\n\n\nWelcome To My Blog\n\n\n\n\n\n\nnews\n\n\n\n\n\n\n\n\n\nApr 27, 2025\n\n\nTristan O’Malley\n\n\n\n\n\n\nNo matching items"
+    "text": "Algorithmic Social Interaction Simulator\n\n\n\n\n\n\nnews\n\n\ncode\n\n\nanalysis\n\n\n\n\n\n\n\n\n\nApr 30, 2025\n\n\nRayna Singh\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "posts/welcome/index.html",
@@ -16,9 +16,9 @@
   {
     "objectID": "posts/post-with-code/index.html",
     "href": "posts/post-with-code/index.html",
-    "title": "Post With Code",
+    "title": "Algorithmic Social Interaction Simulator",
     "section": "",
-    "text": "This is a post with executable code.\n\n1 + 1\n\n[1] 2"
+    "text": "This project presents an agent-based simulation of emotional-social interaction within a speculative 2050 digital society.\nEach agent represents a unique digital persona with mood states, delegation levels, and emotional behavior rules.\nTrust relationships form dynamically through repeated interactions, influenced by mood compatibility and presence authenticity.\nOver time, emergent emotional communities and isolated agents appear, visualized as evolving networks.\nThe simulation acts as a behavioral backbone for configuring and testing identity systems within the broader PersonaBuild platform."
   },
   {
     "objectID": "about.html",
@@ -26,5 +26,75 @@
     "title": "About",
     "section": "",
     "text": "About this blog"
+  },
+  {
+    "objectID": "posts/post-with-code/index.html#agent-properties-in-detail",
+    "href": "posts/post-with-code/index.html#agent-properties-in-detail",
+    "title": "Algorithmic Social Interaction Simulator",
+    "section": "Agent Properties in Detail",
+    "text": "Agent Properties in Detail\n\nclass Agent:\n    def __init__(self, agent_id):\n        self.id = agent_id\n        self.mood = random.choice(MOODS)\n        self.delegation_mode = random.choice(DELEGATION_MODES)\n        self.trust = {}  # Trust levels with other agents\n        self.interaction_log = {}  # Record of all interactions\n\n\n\n\n\n\n\n\nProperty\nRole\n\n\n\n\nmood\nDefines the agent’s emotional tone (Calm, Energetic, Vivid, Focused)\n\n\ndelegation_mode\nDefines how actively the agent is present (Live Proxy, Soft Delegation, Hard Delegation)\n\n\ntrust\nDictates the strength of connection with other agents\n\n\ninteraction_log\nTracks how often agents interact (relational memory)"
+  },
+  {
+    "objectID": "posts/post-with-code/index.html#behavioral-rules-models-core-intelligence",
+    "href": "posts/post-with-code/index.html#behavioral-rules-models-core-intelligence",
+    "title": "Algorithmic Social Interaction Simulator",
+    "section": "Behavioral Rules (Model’s Core Intelligence)",
+    "text": "Behavioral Rules (Model’s Core Intelligence)\nInteraction Logic:\n\nAgents form trust through repeated interaction.\nIf moods match, trust increases faster.\nIf either agent is in Hard Delegation, trust growth is penalized (they’re emotionally distant).\nInteraction frequency is recorded.\n\nMood Drift:\n\nEach agent has a small chance to randomly change mood per step — simulating emotional instability or influence from the environment."
+  },
+  {
+    "objectID": "posts/post-with-code/index.html#network-output-visualizing-the-emotional-society",
+    "href": "posts/post-with-code/index.html#network-output-visualizing-the-emotional-society",
+    "title": "Algorithmic Social Interaction Simulator",
+    "section": "Network Output: Visualizing the Emotional Society",
+    "text": "Network Output: Visualizing the Emotional Society\n\n\n\n\n\n\n\nOutput\nMeaning\n\n\n\n\nNodes\nEach agent, colored by their current mood\n\n\nEdges\nTrust relationships (thicker = stronger trust)\n\n\nClusters\nGroups of agents with shared moods and frequent trust bonds\n\n\nIsolates\nAgents left out due to delegation distance or mood incompatibility"
+  },
+  {
+    "objectID": "posts/post-with-code/index.html#network-output-visualising-the-emotional-society",
+    "href": "posts/post-with-code/index.html#network-output-visualising-the-emotional-society",
+    "title": "Algorithmic Social Interaction Simulator",
+    "section": "Network Output: Visualising the Emotional Society",
+    "text": "Network Output: Visualising the Emotional Society\n\n\n\n\n\n\n\nOutput\nMeaning\n\n\n\n\nNodes\nEach agent, colored by their current mood\n\n\nEdges\nTrust relationships (thicker = stronger trust)\n\n\nClusters\nGroups of agents with shared moods and frequent trust bonds\n\n\nIsolates\nAgents left out due to delegation distance or mood incompatibility"
+  },
+  {
+    "objectID": "posts/post-with-code/index.html#abstract",
+    "href": "posts/post-with-code/index.html#abstract",
+    "title": "Algorithmic Social Interaction Simulator",
+    "section": "",
+    "text": "This project presents an agent-based simulation of emotional-social interaction within a speculative 2050 digital society.\nEach agent represents a unique digital persona with mood states, delegation levels, and emotional behavior rules.\nTrust relationships form dynamically through repeated interactions, influenced by mood compatibility and presence authenticity.\nOver time, emergent emotional communities and isolated agents appear, visualized as evolving networks.\nThe simulation acts as a behavioral backbone for configuring and testing identity systems within the broader PersonaBuild platform."
+  },
+  {
+    "objectID": "posts/post-with-code/index.html#core-abm-components",
+    "href": "posts/post-with-code/index.html#core-abm-components",
+    "title": "Algorithmic Social Interaction Simulator",
+    "section": "Core ABM Components",
+    "text": "Core ABM Components\n\n\n\n\n\n\n\nABM Element\nImplementation\n\n\n\n\nAgents\nEach user is modeled as an Agent with properties like mood, delegation_mode, trust, and interaction_log.\n\n\nWorld\nThe simulation exists in a digital reality space (metaverse layer) where agents interact. It can represent specific “realities” like Work, Gaming, or Public.\n\n\nBehavioral Rules\nDefined in the interact() function:\n\n\n\n• Mood Compatibility → Agents with matching moods build trust faster\n\n\n\n• Delegation Mode → Hard Delegation weakens connection strength\n\n\n\n• Interaction Frequency → Repeated interactions grow trust over time\n\n\nSimulation Loop\nImplemented in the run_simulation() function. Runs over a set number of steps, allowing agents to repeatedly and randomly interact and evolve emotionally.\n\n\nVisualization\nEvery 20 steps, the simulation generates a snapshot using matplotlib + networkx, showing agents (as mood-colored nodes) and evolving trust networks.\n\n\nEmotion Logic\nThe mood_instability() function allows agents to randomly shift moods, simulating emotional unpredictability and environmental influence."
+  },
+  {
+    "objectID": "posts/post-with-code/index.html#behavioral-rules-models-core-intelligence-v1",
+    "href": "posts/post-with-code/index.html#behavioral-rules-models-core-intelligence-v1",
+    "title": "Algorithmic Social Interaction Simulator",
+    "section": "Behavioral Rules (Model’s Core Intelligence) v1",
+    "text": "Behavioral Rules (Model’s Core Intelligence) v1\nInteraction Logic:\n\nAgents form trust through repeated interaction.\nIf moods match, trust increases faster.\nIf either agent is in Hard Delegation, trust growth is penalized (they’re emotionally distant).\nInteraction frequency is recorded.\n\nMood Drift:\n\nEach agent has a small chance to randomly change mood per step — simulating emotional instability or influence from the environment (like news, changes in the virtual world, or social events)."
+  },
+  {
+    "objectID": "posts/post-with-code/index.html#code",
+    "href": "posts/post-with-code/index.html#code",
+    "title": "Algorithmic Social Interaction Simulator",
+    "section": "Code",
+    "text": "Code\n\nimport random\nimport networkx as nx\nimport matplotlib.pyplot as plt\nimport matplotlib.animation as animation\nfrom matplotlib.widgets import Button\n\n# Define moods and colors\nMOODS = ['Calm', 'Energetic', 'Vivid', 'Focused']\nMOOD_COLORS = {\n    'Calm': 'skyblue',\n    'Energetic': 'pink',\n    'Vivid': 'purple',\n    'Focused': 'green',\n    'Isolated': 'gray'  # Special color for isolated agents\n}\nDELEGATION_MODES = ['Live Proxy', 'Soft Delegation', 'Hard Delegation']\n\nclass Agent:\n    def __init__(self, agent_id):\n        self.id = agent_id\n        self.mood = random.choice(MOODS)\n        self.delegation_mode = random.choice(DELEGATION_MODES)\n        self.trust = {}  # Trust with others\n        self.interaction_log = {}\n\n# Create agents\ndef create_agents(num_agents):\n    return [Agent(i) for i in range(num_agents)]\n\n# Mood compatibility check\ndef mood_similarity(mood1, mood2):\n    return mood1 == mood2\n\n# Interaction rules\ndef interact(agent_a, agent_b):\n    base_trust_change = 0.05  # base trust change\n    if mood_similarity(agent_a.mood, agent_b.mood):\n        trust_change = base_trust_change * 2\n    else:\n        trust_change = base_trust_change * 0.5\n\n    if 'Hard Delegation' in [agent_a.delegation_mode, agent_b.delegation_mode]:\n        trust_change *= 0.5  # penalty for ghost mode\n\n    agent_a.trust.setdefault(agent_b.id, 0)\n    agent_b.trust.setdefault(agent_a.id, 0)\n\n    agent_a.trust[agent_b.id] += trust_change\n    agent_b.trust[agent_a.id] += trust_change\n\n    agent_a.interaction_log[agent_b.id] = agent_a.interaction_log.get(agent_b.id, 0) + 1\n    agent_b.interaction_log[agent_a.id] = agent_b.interaction_log.get(agent_a.id, 0) + 1\n\n# Mood instability based on interaction frequency\ndef mood_instability(agent, instability_rate=0.05):\n    total_interactions = sum(agent.interaction_log.values())\n    adjusted_instability_rate = instability_rate + (total_interactions / 1000)\n    if random.random() &lt; adjusted_instability_rate:\n        agent.mood = random.choice(MOODS)\n\n#  trust graph\ndef build_trust_graph(agents, trust_threshold=0.1):\n    G = nx.Graph()\n    for agent in agents:\n        G.add_node(agent.id, mood=agent.mood)\n        for other_id, trust_value in agent.trust.items():\n            if trust_value &gt;= trust_threshold:\n                G.add_edge(agent.id, other_id, weight=trust_value)\n    return G\n\n# Highlight isolated agents based on low interaction or low trust\ndef get_isolated_agents(agents, trust_threshold=0.1, interaction_threshold=2):\n    isolated_agents = []\n    for agent in agents:\n        if len(agent.trust) == 0 or all(trust &lt; trust_threshold for trust in agent.trust.values()):\n            if sum(agent.interaction_log.values()) &lt; interaction_threshold:\n                isolated_agents.append(agent.id)\n    return isolated_agents\n\n# Improved node visualization:  node size, color, and border\ndef draw_graph(G, ax, isolated_agents):\n    pos = nx.spring_layout(G, seed=42)\n    \n    node_colors = [MOOD_COLORS[G.nodes[n]['mood']] if n not in isolated_agents else 'gray' for n in G.nodes()]\n    \n    node_sizes = [1000 + sum(G[node][neighbor]['weight'] for neighbor in G[node])*200 for node in G.nodes()]\n    \n    edges = G.edges()\n    edge_widths = [G[u][v]['weight'] * 5 for u, v in edges]\n    \n    nx.draw(G, pos, ax=ax, with_labels=True,\n            node_color=node_colors, node_size=node_sizes,\n            edge_color='gray', width=edge_widths,\n            font_size=12, font_weight='bold',\n            edgecolors='black', font_color=\"black\")\n    \n    edge_labels = {(u, v): f\"{G[u][v]['weight']:.2f}\" for u, v in G.edges()}\n    nx.draw_networkx_edge_labels(G, pos, edge_labels=edge_labels)\n    \n    ax.set_title(\"Emotional Network Evolution\")\n    \n    handles = [plt.Line2D([0], [0], marker='o', color='w', markerfacecolor=color, markersize=10) \n               for color in MOOD_COLORS.values()]\n    labels = list(MOOD_COLORS.keys())\n    ax.legend(handles, labels, title=\"Moods\")\n\n#  simulation and capture frames\ndef run_simulation(agents, steps, interval=20):\n    frames = []\n    for step in range(steps):\n        agent_a, agent_b = random.sample(agents, 2)\n        interact(agent_a, agent_b)\n\n        for agent in agents:\n            mood_instability(agent)\n\n        if step % interval == 0:\n            G = build_trust_graph(agents)\n            isolated_agents = get_isolated_agents(agents)\n            frames.append((G, isolated_agents))\n    \n    print(f\"Frames captured: {len(frames)}\")  # Debugging: Print the number of frames captured\n    return frames\n  \n# update function for animation\ndef update_graph(i, ax, frames):\n    ax.clear()  # Clear the previous frame\n    G, isolated_agents = frames[i]  # Get the graph and isolated agents for this frame\n    draw_graph(G, ax, isolated_agents)  # Redraw the graph with updated data\n\n\n# animation\ndef save_animation(frames, filename=\"animation.gif\"):\n    fig, ax = plt.subplots(figsize=(8, 6))\n\n    anim = animation.FuncAnimation(\n        fig, lambda i: update_graph(i, ax, frames), frames=len(frames), interval=500, repeat=False, blit=False\n    )\n\n    #  animation as a GIF\n    anim.save(filename, writer='imagemagick', fps=5)  \n\n\nagents = create_agents(20)\nframes = run_simulation(agents, steps=500, interval=20)\nsave_animation(frames, filename=\"my_simulation.gif\")\n\nFrames captured: 25\n\n\nMovieWriter imagemagick unavailable; using Pillow instead.\n\n\n\n\n\n\n\n\n\n\n\n\nAgent Interaction Simulation"
+  },
+  {
+    "objectID": "posts/post-with-code/index.html#inferences-and-insights-from-the-simulation-output",
+    "href": "posts/post-with-code/index.html#inferences-and-insights-from-the-simulation-output",
+    "title": "Algorithmic Social Interaction Simulator",
+    "section": "Inferences and Insights from the Simulation Output",
+    "text": "Inferences and Insights from the Simulation Output\nBy analyzing the network visualization and output GIF, several key insights can be drawn:\n\nSocial Dynamics:\n\nEmotional Compatibility: Agents with similar moods tend to cluster together, building stronger relationships faster. This suggests that emotional compatibility plays a crucial role in fostering community cohesion.\nEmotional Distance: Agents in Hard Delegation modes maintain weaker trust bonds. This highlights the importance of emotional engagement in creating meaningful connections in a community.\n\nEmergent Communities:\n\nGroups of agents with shared moods naturally form. These clusters represent emotional subgroups that evolve based on mood compatibility and interaction frequency.\nSubgroups can emerge from shared values or emotional states, providing insight into how communities in virtual environments can form organically.\n\nIsolation:\n\nAgents that remain isolated throughout the simulation typically have either low interaction or incompatible moods. This highlights the challenges of engagement and connection in social platforms.\nIsolated agents may require intervention strategies (e.g., connecting them with similar agents) to reduce their isolation.\n\nTrust Dynamics:\n\nTrust growth is influenced by repeated interactions. Agents with similar moods form stronger trust bonds, while those with mismatched moods build trust more slowly.\nThis suggests that trust-building in digital platforms (or virtual communities) can be accelerated by fostering mood compatibility or facilitating more frequent interactions."
+  },
+  {
+    "objectID": "posts/post-with-code/index.html#applications-and-next-steps",
+    "href": "posts/post-with-code/index.html#applications-and-next-steps",
+    "title": "Algorithmic Social Interaction Simulator",
+    "section": "Applications and Next Steps",
+    "text": "Applications and Next Steps\n\nIdentity Systems Design: The insights on emotional engagement and trust can inform the design of identity systems within PersonaBuild.\nEngagement Strategies: Understanding emotional compatibility and trust dynamics helps in designing engagement strategies that encourage social interaction and reduce isolation in digital communities.\nPlatform Improvements: Insights on isolated agents can help refine platform features to ensure users are emotionally engaged and not left out due to incompatibilities."
   }
 ]

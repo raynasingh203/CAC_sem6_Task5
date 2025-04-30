@@ -6,10 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Harlow Malloc">
+<meta name="author" content="Rayna Singh">
 <meta name="dcterms.date" content="2025-04-30">
 
-<title>Post With Code – CAC_sem6_Task5</title>
+<title>Algorithmic Social Interaction Simulator – CAC_sem6_Task5</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -149,7 +149,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
-      <h1 class="title">Post With Code</h1>
+      <h1 class="title">Algorithmic Social Interaction Simulator</h1>
                                 <div class="quarto-categories">
                 <div class="quarto-category">news</div>
                 <div class="quarto-category">code</div>
@@ -164,7 +164,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div>
       <div class="quarto-title-meta-heading">Author</div>
       <div class="quarto-title-meta-contents">
-               <p>Harlow Malloc </p>
+               <p>Rayna Singh </p>
             </div>
     </div>
       
@@ -190,15 +190,362 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 
-<p>This is a post with executable code.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">+</span> <span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="abstract" class="level2">
+<h2 class="anchored" data-anchor-id="abstract">Abstract</h2>
+<p>This project presents an agent-based simulation of emotional-social interaction within a speculative 2050 digital society.<br>
+Each agent represents a unique digital persona with mood states, delegation levels, and emotional behavior rules.<br>
+Trust relationships form dynamically through repeated interactions, influenced by mood compatibility and presence authenticity.<br>
+Over time, emergent emotional communities and isolated agents appear, visualized as evolving networks.<br>
+The simulation acts as a behavioral backbone for configuring and testing identity systems within the broader PersonaBuild platform.</p>
+</section>
+<section id="core-abm-components" class="level2">
+<h2 class="anchored" data-anchor-id="core-abm-components">Core ABM Components</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 31%">
+<col style="width: 68%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>ABM Element</th>
+<th>Implementation</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Agents</strong></td>
+<td>Each user is modeled as an <code>Agent</code> with properties like <code>mood</code>, <code>delegation_mode</code>, <code>trust</code>, and <code>interaction_log</code>.</td>
+</tr>
+<tr class="even">
+<td><strong>World</strong></td>
+<td>The simulation exists in a digital reality space (metaverse layer) where agents interact. It can represent specific “realities” like Work, Gaming, or Public.</td>
+</tr>
+<tr class="odd">
+<td><strong>Behavioral Rules</strong></td>
+<td>Defined in the <code>interact()</code> function:</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>• <em>Mood Compatibility</em> → Agents with matching moods build trust faster</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>• <em>Delegation Mode</em> → Hard Delegation weakens connection strength</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>• <em>Interaction Frequency</em> → Repeated interactions grow trust over time</td>
+</tr>
+<tr class="odd">
+<td><strong>Simulation Loop</strong></td>
+<td>Implemented in the <code>run_simulation()</code> function. Runs over a set number of steps, allowing agents to repeatedly and randomly interact and evolve emotionally.</td>
+</tr>
+<tr class="even">
+<td><strong>Visualization</strong></td>
+<td>Every 20 steps, the simulation generates a snapshot using <code>matplotlib</code> + <code>networkx</code>, showing agents (as mood-colored nodes) and evolving trust networks.</td>
+</tr>
+<tr class="odd">
+<td><strong>Emotion Logic</strong></td>
+<td>The <code>mood_instability()</code> function allows agents to randomly shift moods, simulating emotional unpredictability and environmental influence.</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="agent-properties-in-detail" class="level2">
+<h2 class="anchored" data-anchor-id="agent-properties-in-detail">Agent Properties in Detail</h2>
+<div id="513773c8" class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Agent:</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, agent_id):</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.<span class="bu">id</span> <span class="op">=</span> agent_id</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.mood <span class="op">=</span> random.choice(MOODS)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.delegation_mode <span class="op">=</span> random.choice(DELEGATION_MODES)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.trust <span class="op">=</span> {}  <span class="co"># Trust levels with other agents</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.interaction_log <span class="op">=</span> {}  <span class="co"># Record of all interactions</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 66%">
+</colgroup>
+<thead>
+<tr class="header">
+<th><strong>Property</strong></th>
+<th><strong>Role</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>mood</code></td>
+<td>Defines the agent’s emotional tone (Calm, Energetic, Vivid, Focused)</td>
+</tr>
+<tr class="even">
+<td><code>delegation_mode</code></td>
+<td>Defines how actively the agent is present (Live Proxy, Soft Delegation, Hard Delegation)</td>
+</tr>
+<tr class="odd">
+<td><code>trust</code></td>
+<td>Dictates the strength of connection with other agents</td>
+</tr>
+<tr class="even">
+<td><code>interaction_log</code></td>
+<td>Tracks how often agents interact (relational memory)</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="behavioral-rules-models-core-intelligence-v1" class="level2">
+<h2 class="anchored" data-anchor-id="behavioral-rules-models-core-intelligence-v1">Behavioral Rules (Model’s Core Intelligence) v1</h2>
+<p><strong>Interaction Logic:</strong></p>
+<ul>
+<li><p>Agents form trust through repeated interaction.</p></li>
+<li><p>If moods match, trust increases faster.</p></li>
+<li><p>If either agent is in Hard Delegation, trust growth is penalized (they’re emotionally distant).</p></li>
+<li><p>Interaction frequency is recorded.</p></li>
+</ul>
+<p><strong>Mood Drift:</strong></p>
+<ul>
+<li>Each agent has a small chance to randomly change mood per step — simulating emotional instability or influence from the environment (like news, changes in the virtual world, or social events).</li>
+</ul>
+</section>
+<section id="network-output-visualising-the-emotional-society" class="level2">
+<h2 class="anchored" data-anchor-id="network-output-visualising-the-emotional-society">Network Output: Visualising the Emotional Society</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 34%">
+<col style="width: 65%">
+</colgroup>
+<thead>
+<tr class="header">
+<th><strong>Output</strong></th>
+<th><strong>Meaning</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Nodes</strong></td>
+<td>Each agent, colored by their current mood</td>
+</tr>
+<tr class="even">
+<td><strong>Edges</strong></td>
+<td>Trust relationships (thicker = stronger trust)</td>
+</tr>
+<tr class="odd">
+<td><strong>Clusters</strong></td>
+<td>Groups of agents with shared moods and frequent trust bonds</td>
+</tr>
+<tr class="even">
+<td><strong>Isolates</strong></td>
+<td>Agents left out due to delegation distance or mood incompatibility</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="code" class="level2">
+<h2 class="anchored" data-anchor-id="code">Code</h2>
+<div id="1193778a" class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> random</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> networkx <span class="im">as</span> nx</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.animation <span class="im">as</span> animation</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib.widgets <span class="im">import</span> Button</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Define moods and colors</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>MOODS <span class="op">=</span> [<span class="st">'Calm'</span>, <span class="st">'Energetic'</span>, <span class="st">'Vivid'</span>, <span class="st">'Focused'</span>]</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>MOOD_COLORS <span class="op">=</span> {</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Calm'</span>: <span class="st">'skyblue'</span>,</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Energetic'</span>: <span class="st">'pink'</span>,</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Vivid'</span>: <span class="st">'purple'</span>,</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Focused'</span>: <span class="st">'green'</span>,</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>    <span class="st">'Isolated'</span>: <span class="st">'gray'</span>  <span class="co"># Special color for isolated agents</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>DELEGATION_MODES <span class="op">=</span> [<span class="st">'Live Proxy'</span>, <span class="st">'Soft Delegation'</span>, <span class="st">'Hard Delegation'</span>]</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Agent:</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, agent_id):</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.<span class="bu">id</span> <span class="op">=</span> agent_id</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.mood <span class="op">=</span> random.choice(MOODS)</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.delegation_mode <span class="op">=</span> random.choice(DELEGATION_MODES)</span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.trust <span class="op">=</span> {}  <span class="co"># Trust with others</span></span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.interaction_log <span class="op">=</span> {}</span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a><span class="co"># Create agents</span></span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> create_agents(num_agents):</span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> [Agent(i) <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(num_agents)]</span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a><span class="co"># Mood compatibility check</span></span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> mood_similarity(mood1, mood2):</span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> mood1 <span class="op">==</span> mood2</span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a><span class="co"># Interaction rules</span></span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> interact(agent_a, agent_b):</span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a>    base_trust_change <span class="op">=</span> <span class="fl">0.05</span>  <span class="co"># base trust change</span></span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> mood_similarity(agent_a.mood, agent_b.mood):</span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a>        trust_change <span class="op">=</span> base_trust_change <span class="op">*</span> <span class="dv">2</span></span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a>        trust_change <span class="op">=</span> base_trust_change <span class="op">*</span> <span class="fl">0.5</span></span>
+<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="st">'Hard Delegation'</span> <span class="kw">in</span> [agent_a.delegation_mode, agent_b.delegation_mode]:</span>
+<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a>        trust_change <span class="op">*=</span> <span class="fl">0.5</span>  <span class="co"># penalty for ghost mode</span></span>
+<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a>    agent_a.trust.setdefault(agent_b.<span class="bu">id</span>, <span class="dv">0</span>)</span>
+<span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a>    agent_b.trust.setdefault(agent_a.<span class="bu">id</span>, <span class="dv">0</span>)</span>
+<span id="cb2-47"><a href="#cb2-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-48"><a href="#cb2-48" aria-hidden="true" tabindex="-1"></a>    agent_a.trust[agent_b.<span class="bu">id</span>] <span class="op">+=</span> trust_change</span>
+<span id="cb2-49"><a href="#cb2-49" aria-hidden="true" tabindex="-1"></a>    agent_b.trust[agent_a.<span class="bu">id</span>] <span class="op">+=</span> trust_change</span>
+<span id="cb2-50"><a href="#cb2-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-51"><a href="#cb2-51" aria-hidden="true" tabindex="-1"></a>    agent_a.interaction_log[agent_b.<span class="bu">id</span>] <span class="op">=</span> agent_a.interaction_log.get(agent_b.<span class="bu">id</span>, <span class="dv">0</span>) <span class="op">+</span> <span class="dv">1</span></span>
+<span id="cb2-52"><a href="#cb2-52" aria-hidden="true" tabindex="-1"></a>    agent_b.interaction_log[agent_a.<span class="bu">id</span>] <span class="op">=</span> agent_b.interaction_log.get(agent_a.<span class="bu">id</span>, <span class="dv">0</span>) <span class="op">+</span> <span class="dv">1</span></span>
+<span id="cb2-53"><a href="#cb2-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-54"><a href="#cb2-54" aria-hidden="true" tabindex="-1"></a><span class="co"># Mood instability based on interaction frequency</span></span>
+<span id="cb2-55"><a href="#cb2-55" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> mood_instability(agent, instability_rate<span class="op">=</span><span class="fl">0.05</span>):</span>
+<span id="cb2-56"><a href="#cb2-56" aria-hidden="true" tabindex="-1"></a>    total_interactions <span class="op">=</span> <span class="bu">sum</span>(agent.interaction_log.values())</span>
+<span id="cb2-57"><a href="#cb2-57" aria-hidden="true" tabindex="-1"></a>    adjusted_instability_rate <span class="op">=</span> instability_rate <span class="op">+</span> (total_interactions <span class="op">/</span> <span class="dv">1000</span>)</span>
+<span id="cb2-58"><a href="#cb2-58" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> random.random() <span class="op">&lt;</span> adjusted_instability_rate:</span>
+<span id="cb2-59"><a href="#cb2-59" aria-hidden="true" tabindex="-1"></a>        agent.mood <span class="op">=</span> random.choice(MOODS)</span>
+<span id="cb2-60"><a href="#cb2-60" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-61"><a href="#cb2-61" aria-hidden="true" tabindex="-1"></a><span class="co">#  trust graph</span></span>
+<span id="cb2-62"><a href="#cb2-62" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> build_trust_graph(agents, trust_threshold<span class="op">=</span><span class="fl">0.1</span>):</span>
+<span id="cb2-63"><a href="#cb2-63" aria-hidden="true" tabindex="-1"></a>    G <span class="op">=</span> nx.Graph()</span>
+<span id="cb2-64"><a href="#cb2-64" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> agent <span class="kw">in</span> agents:</span>
+<span id="cb2-65"><a href="#cb2-65" aria-hidden="true" tabindex="-1"></a>        G.add_node(agent.<span class="bu">id</span>, mood<span class="op">=</span>agent.mood)</span>
+<span id="cb2-66"><a href="#cb2-66" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> other_id, trust_value <span class="kw">in</span> agent.trust.items():</span>
+<span id="cb2-67"><a href="#cb2-67" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> trust_value <span class="op">&gt;=</span> trust_threshold:</span>
+<span id="cb2-68"><a href="#cb2-68" aria-hidden="true" tabindex="-1"></a>                G.add_edge(agent.<span class="bu">id</span>, other_id, weight<span class="op">=</span>trust_value)</span>
+<span id="cb2-69"><a href="#cb2-69" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> G</span>
+<span id="cb2-70"><a href="#cb2-70" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-71"><a href="#cb2-71" aria-hidden="true" tabindex="-1"></a><span class="co"># Highlight isolated agents based on low interaction or low trust</span></span>
+<span id="cb2-72"><a href="#cb2-72" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> get_isolated_agents(agents, trust_threshold<span class="op">=</span><span class="fl">0.1</span>, interaction_threshold<span class="op">=</span><span class="dv">2</span>):</span>
+<span id="cb2-73"><a href="#cb2-73" aria-hidden="true" tabindex="-1"></a>    isolated_agents <span class="op">=</span> []</span>
+<span id="cb2-74"><a href="#cb2-74" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> agent <span class="kw">in</span> agents:</span>
+<span id="cb2-75"><a href="#cb2-75" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="bu">len</span>(agent.trust) <span class="op">==</span> <span class="dv">0</span> <span class="kw">or</span> <span class="bu">all</span>(trust <span class="op">&lt;</span> trust_threshold <span class="cf">for</span> trust <span class="kw">in</span> agent.trust.values()):</span>
+<span id="cb2-76"><a href="#cb2-76" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> <span class="bu">sum</span>(agent.interaction_log.values()) <span class="op">&lt;</span> interaction_threshold:</span>
+<span id="cb2-77"><a href="#cb2-77" aria-hidden="true" tabindex="-1"></a>                isolated_agents.append(agent.<span class="bu">id</span>)</span>
+<span id="cb2-78"><a href="#cb2-78" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> isolated_agents</span>
+<span id="cb2-79"><a href="#cb2-79" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-80"><a href="#cb2-80" aria-hidden="true" tabindex="-1"></a><span class="co"># Improved node visualization:  node size, color, and border</span></span>
+<span id="cb2-81"><a href="#cb2-81" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> draw_graph(G, ax, isolated_agents):</span>
+<span id="cb2-82"><a href="#cb2-82" aria-hidden="true" tabindex="-1"></a>    pos <span class="op">=</span> nx.spring_layout(G, seed<span class="op">=</span><span class="dv">42</span>)</span>
+<span id="cb2-83"><a href="#cb2-83" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb2-84"><a href="#cb2-84" aria-hidden="true" tabindex="-1"></a>    node_colors <span class="op">=</span> [MOOD_COLORS[G.nodes[n][<span class="st">'mood'</span>]] <span class="cf">if</span> n <span class="kw">not</span> <span class="kw">in</span> isolated_agents <span class="cf">else</span> <span class="st">'gray'</span> <span class="cf">for</span> n <span class="kw">in</span> G.nodes()]</span>
+<span id="cb2-85"><a href="#cb2-85" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb2-86"><a href="#cb2-86" aria-hidden="true" tabindex="-1"></a>    node_sizes <span class="op">=</span> [<span class="dv">1000</span> <span class="op">+</span> <span class="bu">sum</span>(G[node][neighbor][<span class="st">'weight'</span>] <span class="cf">for</span> neighbor <span class="kw">in</span> G[node])<span class="op">*</span><span class="dv">200</span> <span class="cf">for</span> node <span class="kw">in</span> G.nodes()]</span>
+<span id="cb2-87"><a href="#cb2-87" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb2-88"><a href="#cb2-88" aria-hidden="true" tabindex="-1"></a>    edges <span class="op">=</span> G.edges()</span>
+<span id="cb2-89"><a href="#cb2-89" aria-hidden="true" tabindex="-1"></a>    edge_widths <span class="op">=</span> [G[u][v][<span class="st">'weight'</span>] <span class="op">*</span> <span class="dv">5</span> <span class="cf">for</span> u, v <span class="kw">in</span> edges]</span>
+<span id="cb2-90"><a href="#cb2-90" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb2-91"><a href="#cb2-91" aria-hidden="true" tabindex="-1"></a>    nx.draw(G, pos, ax<span class="op">=</span>ax, with_labels<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb2-92"><a href="#cb2-92" aria-hidden="true" tabindex="-1"></a>            node_color<span class="op">=</span>node_colors, node_size<span class="op">=</span>node_sizes,</span>
+<span id="cb2-93"><a href="#cb2-93" aria-hidden="true" tabindex="-1"></a>            edge_color<span class="op">=</span><span class="st">'gray'</span>, width<span class="op">=</span>edge_widths,</span>
+<span id="cb2-94"><a href="#cb2-94" aria-hidden="true" tabindex="-1"></a>            font_size<span class="op">=</span><span class="dv">12</span>, font_weight<span class="op">=</span><span class="st">'bold'</span>,</span>
+<span id="cb2-95"><a href="#cb2-95" aria-hidden="true" tabindex="-1"></a>            edgecolors<span class="op">=</span><span class="st">'black'</span>, font_color<span class="op">=</span><span class="st">"black"</span>)</span>
+<span id="cb2-96"><a href="#cb2-96" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb2-97"><a href="#cb2-97" aria-hidden="true" tabindex="-1"></a>    edge_labels <span class="op">=</span> {(u, v): <span class="ss">f"</span><span class="sc">{</span>G[u][v][<span class="st">'weight'</span>]<span class="sc">:.2f}</span><span class="ss">"</span> <span class="cf">for</span> u, v <span class="kw">in</span> G.edges()}</span>
+<span id="cb2-98"><a href="#cb2-98" aria-hidden="true" tabindex="-1"></a>    nx.draw_networkx_edge_labels(G, pos, edge_labels<span class="op">=</span>edge_labels)</span>
+<span id="cb2-99"><a href="#cb2-99" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb2-100"><a href="#cb2-100" aria-hidden="true" tabindex="-1"></a>    ax.set_title(<span class="st">"Emotional Network Evolution"</span>)</span>
+<span id="cb2-101"><a href="#cb2-101" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb2-102"><a href="#cb2-102" aria-hidden="true" tabindex="-1"></a>    handles <span class="op">=</span> [plt.Line2D([<span class="dv">0</span>], [<span class="dv">0</span>], marker<span class="op">=</span><span class="st">'o'</span>, color<span class="op">=</span><span class="st">'w'</span>, markerfacecolor<span class="op">=</span>color, markersize<span class="op">=</span><span class="dv">10</span>) </span>
+<span id="cb2-103"><a href="#cb2-103" aria-hidden="true" tabindex="-1"></a>               <span class="cf">for</span> color <span class="kw">in</span> MOOD_COLORS.values()]</span>
+<span id="cb2-104"><a href="#cb2-104" aria-hidden="true" tabindex="-1"></a>    labels <span class="op">=</span> <span class="bu">list</span>(MOOD_COLORS.keys())</span>
+<span id="cb2-105"><a href="#cb2-105" aria-hidden="true" tabindex="-1"></a>    ax.legend(handles, labels, title<span class="op">=</span><span class="st">"Moods"</span>)</span>
+<span id="cb2-106"><a href="#cb2-106" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-107"><a href="#cb2-107" aria-hidden="true" tabindex="-1"></a><span class="co">#  simulation and capture frames</span></span>
+<span id="cb2-108"><a href="#cb2-108" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> run_simulation(agents, steps, interval<span class="op">=</span><span class="dv">20</span>):</span>
+<span id="cb2-109"><a href="#cb2-109" aria-hidden="true" tabindex="-1"></a>    frames <span class="op">=</span> []</span>
+<span id="cb2-110"><a href="#cb2-110" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> step <span class="kw">in</span> <span class="bu">range</span>(steps):</span>
+<span id="cb2-111"><a href="#cb2-111" aria-hidden="true" tabindex="-1"></a>        agent_a, agent_b <span class="op">=</span> random.sample(agents, <span class="dv">2</span>)</span>
+<span id="cb2-112"><a href="#cb2-112" aria-hidden="true" tabindex="-1"></a>        interact(agent_a, agent_b)</span>
+<span id="cb2-113"><a href="#cb2-113" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-114"><a href="#cb2-114" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> agent <span class="kw">in</span> agents:</span>
+<span id="cb2-115"><a href="#cb2-115" aria-hidden="true" tabindex="-1"></a>            mood_instability(agent)</span>
+<span id="cb2-116"><a href="#cb2-116" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-117"><a href="#cb2-117" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> step <span class="op">%</span> interval <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb2-118"><a href="#cb2-118" aria-hidden="true" tabindex="-1"></a>            G <span class="op">=</span> build_trust_graph(agents)</span>
+<span id="cb2-119"><a href="#cb2-119" aria-hidden="true" tabindex="-1"></a>            isolated_agents <span class="op">=</span> get_isolated_agents(agents)</span>
+<span id="cb2-120"><a href="#cb2-120" aria-hidden="true" tabindex="-1"></a>            frames.append((G, isolated_agents))</span>
+<span id="cb2-121"><a href="#cb2-121" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb2-122"><a href="#cb2-122" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Frames captured: </span><span class="sc">{</span><span class="bu">len</span>(frames)<span class="sc">}</span><span class="ss">"</span>)  <span class="co"># Debugging: Print the number of frames captured</span></span>
+<span id="cb2-123"><a href="#cb2-123" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> frames</span>
+<span id="cb2-124"><a href="#cb2-124" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb2-125"><a href="#cb2-125" aria-hidden="true" tabindex="-1"></a><span class="co"># update function for animation</span></span>
+<span id="cb2-126"><a href="#cb2-126" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> update_graph(i, ax, frames):</span>
+<span id="cb2-127"><a href="#cb2-127" aria-hidden="true" tabindex="-1"></a>    ax.clear()  <span class="co"># Clear the previous frame</span></span>
+<span id="cb2-128"><a href="#cb2-128" aria-hidden="true" tabindex="-1"></a>    G, isolated_agents <span class="op">=</span> frames[i]  <span class="co"># Get the graph and isolated agents for this frame</span></span>
+<span id="cb2-129"><a href="#cb2-129" aria-hidden="true" tabindex="-1"></a>    draw_graph(G, ax, isolated_agents)  <span class="co"># Redraw the graph with updated data</span></span>
+<span id="cb2-130"><a href="#cb2-130" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-131"><a href="#cb2-131" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-132"><a href="#cb2-132" aria-hidden="true" tabindex="-1"></a><span class="co"># animation</span></span>
+<span id="cb2-133"><a href="#cb2-133" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> save_animation(frames, filename<span class="op">=</span><span class="st">"animation.gif"</span>):</span>
+<span id="cb2-134"><a href="#cb2-134" aria-hidden="true" tabindex="-1"></a>    fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">6</span>))</span>
+<span id="cb2-135"><a href="#cb2-135" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-136"><a href="#cb2-136" aria-hidden="true" tabindex="-1"></a>    anim <span class="op">=</span> animation.FuncAnimation(</span>
+<span id="cb2-137"><a href="#cb2-137" aria-hidden="true" tabindex="-1"></a>        fig, <span class="kw">lambda</span> i: update_graph(i, ax, frames), frames<span class="op">=</span><span class="bu">len</span>(frames), interval<span class="op">=</span><span class="dv">500</span>, repeat<span class="op">=</span><span class="va">False</span>, blit<span class="op">=</span><span class="va">False</span></span>
+<span id="cb2-138"><a href="#cb2-138" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb2-139"><a href="#cb2-139" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-140"><a href="#cb2-140" aria-hidden="true" tabindex="-1"></a>    <span class="co">#  animation as a GIF</span></span>
+<span id="cb2-141"><a href="#cb2-141" aria-hidden="true" tabindex="-1"></a>    anim.save(filename, writer<span class="op">=</span><span class="st">'imagemagick'</span>, fps<span class="op">=</span><span class="dv">5</span>)  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="733849ea" class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>agents <span class="op">=</span> create_agents(<span class="dv">20</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>frames <span class="op">=</span> run_simulation(agents, steps<span class="op">=</span><span class="dv">500</span>, interval<span class="op">=</span><span class="dv">20</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>save_animation(frames, filename<span class="op">=</span><span class="st">"my_simulation.gif"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 2</code></pre>
+<pre><code>Frames captured: 25</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>MovieWriter imagemagick unavailable; using Pillow instead.</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/cell-4-output-3.png" class="img-fluid figure-img"></p>
+</figure>
 </div>
 </div>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="my_simulation.gif" class="img-fluid figure-img"></p>
+<figcaption>Agent Interaction Simulation</figcaption>
+</figure>
+</div>
+</section>
+<section id="inferences-and-insights-from-the-simulation-output" class="level2">
+<h2 class="anchored" data-anchor-id="inferences-and-insights-from-the-simulation-output"><strong>Inferences and Insights from the Simulation Output</strong></h2>
+<p>By analyzing the network visualization and output GIF, several key insights can be drawn:</p>
+<ol type="1">
+<li><p><strong>Social Dynamics</strong>:</p>
+<ul>
+<li><p><strong>Emotional Compatibility</strong>: Agents with similar moods tend to cluster together, building stronger relationships faster. This suggests that emotional compatibility plays a crucial role in fostering&nbsp;<strong>community cohesion</strong>.</p></li>
+<li><p><strong>Emotional Distance</strong>: Agents in&nbsp;<strong>Hard Delegation</strong>&nbsp;modes maintain weaker trust bonds. This highlights the importance of&nbsp;<strong>emotional engagement</strong>&nbsp;in creating meaningful connections in a community.</p></li>
+</ul></li>
+<li><p><strong>Emergent Communities</strong>:</p>
+<ul>
+<li><p>Groups of agents with shared moods naturally form. These clusters represent emotional&nbsp;<strong>subgroups</strong>&nbsp;that evolve based on mood compatibility and interaction frequency.</p></li>
+<li><p><strong>Subgroups</strong>&nbsp;can emerge from&nbsp;<strong>shared values or emotional states</strong>, providing insight into how communities in virtual environments can form organically.</p></li>
+</ul></li>
+<li><p><strong>Isolation</strong>:</p>
+<ul>
+<li><p>Agents that remain&nbsp;<strong>isolated</strong>&nbsp;throughout the simulation typically have either low interaction or incompatible moods. This highlights the challenges of&nbsp;<strong>engagement</strong>&nbsp;and&nbsp;<strong>connection</strong>&nbsp;in social platforms.</p></li>
+<li><p><strong>Isolated agents</strong>&nbsp;may require intervention strategies (e.g., connecting them with similar agents) to reduce their isolation.</p></li>
+</ul></li>
+<li><p><strong>Trust Dynamics</strong>:</p>
+<ul>
+<li><p><strong>Trust growth</strong>&nbsp;is influenced by repeated interactions. Agents with similar moods form stronger trust bonds, while those with mismatched moods build trust more slowly.</p></li>
+<li><p>This suggests that&nbsp;<strong>trust-building</strong>&nbsp;in digital platforms (or virtual communities) can be accelerated by fostering mood compatibility or facilitating&nbsp;<strong>more frequent interactions</strong>.</p></li>
+</ul></li>
+</ol>
+</section>
+<section id="applications-and-next-steps" class="level2">
+<h2 class="anchored" data-anchor-id="applications-and-next-steps"><strong>Applications and Next Steps</strong></h2>
+<ul>
+<li><p><strong>Identity Systems Design</strong>: The insights on emotional engagement and trust can inform the design of&nbsp;<strong>identity systems</strong> within <strong>PersonaBuild</strong>.</p></li>
+<li><p><strong>Engagement Strategies</strong>: Understanding emotional compatibility and trust dynamics helps in designing engagement strategies that encourage&nbsp;<strong>social interaction</strong>&nbsp;and&nbsp;<strong>reduce isolation</strong>&nbsp;in digital communities.</p></li>
+<li><p><strong>Platform Improvements</strong>: Insights on&nbsp;<strong>isolated agents</strong>&nbsp;can help refine platform features to ensure users are&nbsp;<strong>emotionally engaged</strong>&nbsp;and not left out due to incompatibilities.</p></li>
+</ul>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
